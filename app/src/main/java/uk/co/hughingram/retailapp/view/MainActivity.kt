@@ -6,7 +6,7 @@ import android.util.Log
 import androidx.navigation.findNavController
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
-import model.ApiClientImpl
+import model.ApiClientProvider
 import uk.co.hughingram.retailapp.R
 
 class MainActivity : AppCompatActivity() {
@@ -14,7 +14,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        ApiClientImpl().getProductList()
+        val apiClient = (application as ApiClientProvider).apiClient
+        apiClient.getProductList()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
                 onSuccess = {
