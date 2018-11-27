@@ -1,6 +1,7 @@
 package uk.co.hughingram.retailapp.productlist
 
 import io.reactivex.Observable
+import uk.co.hughingram.retailapp.model.Product
 
 interface ProductListPresenter {
 
@@ -11,6 +12,8 @@ interface ProductListPresenter {
 }
 
 interface ProductListView {
+
+    fun updateProductList(products: List<Product>)
 
     fun onProductClick(): Observable<Long>
 

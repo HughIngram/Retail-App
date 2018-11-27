@@ -16,6 +16,7 @@ class ProductListPresenterImpl(private val apiClient: ApiClient) : ProductListPr
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
                 onSuccess = {
+                    view.updateProductList(it)
                     Log.i("test123", it.toString())
                 },
                 onError = {
