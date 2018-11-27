@@ -7,13 +7,26 @@ import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.rxkotlin.subscribeBy
 import uk.co.hughingram.retailapp.model.ApiClient
 
-class ProductListPresenterImpl(private val apiClient: ApiClient) : ProductListPresenter {
+internal class ProductListPresenterImpl(private val apiClient: ApiClient) : ProductListPresenter {
 
     private val disposables = CompositeDisposable()
 
     override fun onAttach(view: ProductListView) {
-        val getProducts = apiClient.getProductList()
+        refreshProductList(view)
+        disposables += view.onSwipeRefresh().subscribe {
+            refreshProductList(view)
+        }
+    }
+
+    private fun refreshProductList(view: ProductListView) {
+        disposables += apiClient.getProductList()
             .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe {
+                view.showLoading()
+            }
+            .doFinally {
+                view.hideLoading()
+            }
             .subscribeBy(
                 onSuccess = {
                     view.updateProductList(it)
@@ -23,7 +36,6 @@ class ProductListPresenterImpl(private val apiClient: ApiClient) : ProductListPr
                     Log.e("test123", "error fetching product list", it)
                 }
             )
-        disposables += getProducts
     }
 
     override fun onDetach() {
