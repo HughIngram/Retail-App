@@ -19,11 +19,11 @@ class ProductRecycler(var products: List<Product>) : RecyclerView.Adapter<Produc
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         val product = products[position]
         val ctx = holder.currentPrice.context
-        // TODO format as 0.00
-        val currentPriceText = ctx.getString(R.string.product_price, product.currentPrice.toString(), product.currency)
+        val currentPriceText =
+            ctx.getString(R.string.product_price, product.currentPrice.formatAsPrice(), product.currency)
         holder.currentPrice.text = currentPriceText
         val originalPriceText =
-            ctx.getString(R.string.product_price, product.originalPrice.toString(), product.currency)
+            ctx.getString(R.string.product_price, product.originalPrice.formatAsPrice(), product.currency)
         // TODO strikethrough
         holder.originalPrice.text = originalPriceText
         holder.name.text = product.name
@@ -32,6 +32,8 @@ class ProductRecycler(var products: List<Product>) : RecyclerView.Adapter<Produc
 
     override fun getItemCount() = products.size
 }
+
+private fun Double.formatAsPrice() = "%.2f".format(this)
 
 class ProductViewHolder(productView: View) : RecyclerView.ViewHolder(productView) {
     val name: TextView = itemView.name
