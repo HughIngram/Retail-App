@@ -21,15 +21,7 @@ internal class ApiClientImpl(baseUrl: String) : ApiClient {
         return Single.fromCallable {
             productListCall.execute().body()
         }.map { productList ->
-            // TODO tidy this up with an ext method
-            productList.products.map {
-                Product(
-                    identifier = it.identifier,
-                    name = it.name,
-                    brand = it.brand,
-                    originalPrice = it.original_price.toString()
-                )
-            }
+            productList.toDomainObject()
         }.subscribeOn(Schedulers.io())
     }
 
@@ -51,7 +43,7 @@ private data class ProductApiModel(
     val name: String,
     val brand: String,
     val original_price: Double,
-    val current_price: String,
+    val current_price: Double,
     val currency: String,
     val image: ImageApiModel
 )
@@ -60,3 +52,16 @@ private data class ImageApiModel(
     val id: Long,
     val url: String
 )
+
+private fun ProductListApiModel.toDomainObject(): List<Product> = products.map {
+    Product(
+        identifier = it.identifier,
+        name = it.name,
+        brand = it.brand,
+        originalPrice = it.original_price,
+        currentPrice = it.current_price,
+        currency = it.currency,
+        image = ProductImage(it.image.url, it.image.id)
+    )
+}
+
