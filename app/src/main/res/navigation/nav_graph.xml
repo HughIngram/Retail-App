@@ -5,6 +5,6 @@
 
     <fragment
         android:id="@+id/productListFragment"
-        android:name="uk.co.hughingram.retailapp.view.ProductListFragment"
+        android:name="uk.co.hughingram.retailapp.productlist.ProductListFragment"
         android:label="ProductListFragment" />
 </navigation>
