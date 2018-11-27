@@ -1,5 +1,6 @@
 package uk.co.hughingram.retailapp.view
 
+import android.content.Context
 import android.graphics.Paint
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -23,19 +24,19 @@ class ProductRecycler(var products: List<Product>) : RecyclerView.Adapter<Produc
         holder.name.text = product.name
         holder.brand.text = product.brand
         val ctx = holder.currentPrice.context
-        val currentPriceText =
-            ctx.getString(R.string.product_price, product.currentPrice.formatAsPrice(), product.currency)
-        holder.currentPrice.text = currentPriceText
+        holder.currentPrice.text = getPriceString(product.currentPrice, product.currency, ctx)
+        // show original price (or not)
         if (product.currentPrice != product.originalPrice) {
-            val originalPriceText =
-                ctx.getString(R.string.product_price, product.originalPrice.formatAsPrice(), product.currency)
-            holder.originalPrice.text = originalPriceText
+            holder.originalPrice.text = getPriceString(product.originalPrice, product.currency, ctx)
             holder.originalPrice.paintFlags = holder.originalPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
             holder.originalPrice.visibility = View.VISIBLE
         } else {
             holder.originalPrice.visibility = View.INVISIBLE
         }
     }
+
+    private fun getPriceString(currentPrice: Double, currency: String, context: Context) =
+        context.getString(R.string.product_price, currentPrice.formatAsPrice(), currency)
 
     override fun getItemCount() = products.size
 }
