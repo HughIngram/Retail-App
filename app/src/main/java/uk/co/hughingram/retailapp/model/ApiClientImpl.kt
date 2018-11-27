@@ -2,8 +2,8 @@ package uk.co.hughingram.retailapp.model
 
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
-import retrofit2.Call
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 
@@ -12,25 +12,21 @@ internal class ApiClientImpl(baseUrl: String) : ApiClient {
     private val retrofit = Retrofit.Builder()
         .baseUrl(baseUrl)
         .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
     private val service = retrofit.create(ProductService::class.java)
 
-    // TODO rx lib
-    override fun getProductList(): Single<List<Product>> {
-        val productListCall = service.listProducts()
-        return Single.fromCallable {
-            productListCall.execute().body()
-        }.map { productList ->
-            productList.toDomainObject()
+    override fun getProductList(): Single<List<Product>> =
+        service.listProducts().map {
+            it.toDomainObject()
         }.subscribeOn(Schedulers.io())
-    }
 
 }
 
 private interface ProductService {
 
     @GET("products")
-    fun listProducts(): Call<ProductListApiModel>
+    fun listProducts(): Single<ProductListApiModel>
 
 }
 
