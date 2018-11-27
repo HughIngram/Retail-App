@@ -38,7 +38,7 @@ class UiTests {
         products.forEachIndexed { index, product ->
             val listItemMatcher = nthChildOf(withId(R.id.product_recycler), index)
             val selectedProductName = getText(
-                allOf(withParent(listItemMatcher), withId(R.id.product_name))
+                allOf(withParent(listItemMatcher), withId(R.id.name))
             )
             assertEquals(product.name, selectedProductName)
         }

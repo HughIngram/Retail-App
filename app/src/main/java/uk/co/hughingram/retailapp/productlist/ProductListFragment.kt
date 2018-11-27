@@ -1,6 +1,7 @@
 package uk.co.hughingram.retailapp.productlist
 
 import android.os.Bundle
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import io.reactivex.Observable
@@ -32,6 +33,8 @@ class ProductListFragment : BaseFragment(), ProductListView {
     private fun initialiseAdapter() {
         product_recycler.layoutManager = LinearLayoutManager(context)
         product_recycler.adapter = ProductRecycler(mutableListOf())
+        val decoration = DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
+        product_recycler.addItemDecoration(decoration)
     }
 
     override fun updateProductList(products: List<Product>) {
