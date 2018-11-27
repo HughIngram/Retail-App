@@ -45,6 +45,18 @@ class ProductListFragment : BaseFragment(), ProductListView {
         presenter.onDetach()
     }
 
+    override fun onSwipeRefresh(): Observable<Unit> = Observable.create { emitter ->
+        swipe_container.setOnRefreshListener { emitter.onNext(Unit) }
+    }
+
+    override fun showLoading() {
+        swipe_container.isRefreshing = true
+    }
+
+    override fun hideLoading() {
+        swipe_container.isRefreshing = false
+    }
+
     override fun onProductClick(): Observable<Long> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }

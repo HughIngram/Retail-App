@@ -19,5 +19,11 @@ interface ProductListView {
 
     fun updateProductList()
 
+    fun onSwipeRefresh(): Observable<Unit>
+
+    fun showLoading()
+
+    fun hideLoading()
+
 }
 
