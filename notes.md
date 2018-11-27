@@ -1,8 +1,11 @@
 # Retail App
 
 ## This feature branch
-- Get the list from the API, and print it to logcat
-    * CLEAN
+- [x] Get the list from the API, and print it to logcat
+- [x] Show a super-basic product list in the UI
+- [x] UI test the above
+    * mock 3 items and verify they're all shown
+    * copy over any relavant tests from EthScan
 
 ## Planning Approach
 - Translate spec into user stories / tasks

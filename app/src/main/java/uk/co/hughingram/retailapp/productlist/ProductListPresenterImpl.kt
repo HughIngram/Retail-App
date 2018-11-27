@@ -20,7 +20,7 @@ class ProductListPresenterImpl(private val apiClient: ApiClient) : ProductListPr
                     Log.i("test123", it.toString())
                 },
                 onError = {
-                    Log.e("test123", "error", it)
+                    Log.e("test123", "error fetching product list", it)
                 }
             )
         disposables += getProducts

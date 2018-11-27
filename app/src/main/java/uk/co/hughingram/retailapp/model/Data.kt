@@ -1,6 +1,9 @@
 package uk.co.hughingram.retailapp.model
 
 
+/**
+ * DTO representing a Product.
+ */
 data class Product(
     val identifier: Long,
     val name: String,
