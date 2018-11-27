@@ -3,8 +3,8 @@ package uk.co.hughingram.retailapp.productlist
 import android.os.Bundle
 import android.view.View
 import io.reactivex.Observable
-import model.ApiClientProvider
 import uk.co.hughingram.retailapp.R
+import uk.co.hughingram.retailapp.model.ApiClientProvider
 import uk.co.hughingram.retailapp.view.BaseFragment
 
 class ProductListFragment : BaseFragment(), ProductListView {

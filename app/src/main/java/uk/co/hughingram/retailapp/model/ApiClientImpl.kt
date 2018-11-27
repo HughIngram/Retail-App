@@ -1,4 +1,4 @@
-package model
+package uk.co.hughingram.retailapp.model
 
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
@@ -7,8 +7,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 
-// TODO baseUrl in gradle
-internal class ApiClientImpl(baseUrl: String = "https://private-91dd6-iosassessment.apiary-mock.com/") : ApiClient {
+internal class ApiClientImpl(baseUrl: String) : ApiClient {
 
     private val retrofit = Retrofit.Builder()
         .baseUrl(baseUrl)

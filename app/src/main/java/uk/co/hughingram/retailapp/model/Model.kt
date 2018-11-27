@@ -1,4 +1,4 @@
-package model
+package uk.co.hughingram.retailapp.model
 
 import io.reactivex.Single
 
