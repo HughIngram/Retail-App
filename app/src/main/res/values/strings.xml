@@ -1,5 +1,4 @@
 <resources>
     <string name="app_name">RetailApp</string>
     <string name="product_price">%1$s %2$s</string>
-    <string name="lbl_original_price">Original Price</string>
 </resources>
