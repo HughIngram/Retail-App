@@ -18,12 +18,24 @@ class ProductRecycler(var products: List<Product>) : RecyclerView.Adapter<Produc
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         val product = products[position]
-        holder.productName.text = product.name
+        val ctx = holder.currentPrice.context
+        // TODO format as 0.00
+        val currentPriceText = ctx.getString(R.string.product_price, product.currentPrice.toString(), product.currency)
+        holder.currentPrice.text = currentPriceText
+        val originalPriceText =
+            ctx.getString(R.string.product_price, product.originalPrice.toString(), product.currency)
+        // TODO strikethrough
+        holder.originalPrice.text = originalPriceText
+        holder.name.text = product.name
+        holder.brand.text = product.brand
     }
 
     override fun getItemCount() = products.size
 }
 
 class ProductViewHolder(productView: View) : RecyclerView.ViewHolder(productView) {
-    val productName: TextView = itemView.product_name
+    val name: TextView = itemView.name
+    val currentPrice: TextView = itemView.current_price
+    val originalPrice: TextView = itemView.original_price
+    val brand: TextView = itemView.brand
 }
