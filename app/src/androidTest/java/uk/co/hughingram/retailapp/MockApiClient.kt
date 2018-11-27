@@ -4,11 +4,8 @@ import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import uk.co.hughingram.retailapp.model.ApiClient
 import uk.co.hughingram.retailapp.model.Product
-import uk.co.hughingram.retailapp.model.ProductImage
-import java.util.*
-import kotlin.random.Random
 
-class MockApiClient(private val loadSlowly: Boolean = false) : ApiClient {
+class MockApiClient(private val productList: List<Product>, private val loadSlowly: Boolean = false) : ApiClient {
 
     var finishLoading = false
 
@@ -18,23 +15,7 @@ class MockApiClient(private val loadSlowly: Boolean = false) : ApiClient {
                 // wait
             }
         }
-        listOf(
-            generateRandomProduct(),
-            generateRandomProduct(),
-            generateRandomProduct()
-        )
+        productList
     }.subscribeOn(Schedulers.io())
 
-    private fun generateRandomProduct() = Product(
-        identifier = Random.nextLong(),
-        name = UUID.randomUUID().toString(),
-        brand = UUID.randomUUID().toString(),
-        originalPrice = Random.nextDouble(),
-        currentPrice = Random.nextDouble(),
-        currency = UUID.randomUUID().toString(),
-        image = ProductImage(
-            url = UUID.randomUUID().toString(),
-            id = Random.nextLong()
-        )
-    )
 }
