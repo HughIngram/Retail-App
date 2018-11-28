@@ -8,21 +8,21 @@ import io.reactivex.schedulers.Schedulers
 class ProductRepositoryImpl(private val apiClient: ProductRepository, context: Context) : ProductRepository {
 
     private val productDao = Room
-        .databaseBuilder(context, ProductDatabase::class.java, "foo")
+        .databaseBuilder(context, ProductDatabase::class.java, "products_db")
         .build()
         .productDao()
 
-    override fun getAllProducts(): Observable<List<Product>> = Observable.concatArray(
-        getProductsFromDb(),
-        getProductsFromApi()
-    ).onErrorResumeNext(getProductsFromDb())
-        .subscribeOn(Schedulers.io())
+    override fun getAllProducts(): Observable<List<Product>> =
+        Observable.concatArrayEager(
+            getProductsFromDb(),
+            getProductsFromApi()
+        ).subscribeOn(Schedulers.io())
 
     private fun getProductsFromDb(): Observable<List<Product>> =
         productDao.getAll().toObservable()
 
-    private fun getProductsFromApi(): Observable<List<Product>> =
-        apiClient.getProductList().doAfterNext {
+    private fun getProductsFromApi(): Observable<List<Product>> = apiClient.getAllProducts()
+        .doOnNext {
             productDao.insertMultipleProducts(it)
         }
 
