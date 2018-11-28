@@ -28,7 +28,7 @@ internal class ProductListPresenterImpl(private val productListRepository: Produ
                 view.hideLoading()
             }
             .subscribeBy(
-                onSuccess = {
+                onNext = {
                     view.updateProductList(it)
                     Log.i("test123", it.toString())
                 },

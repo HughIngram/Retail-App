@@ -2,6 +2,7 @@ package uk.co.hughingram.retailapp.model
 
 import android.arch.persistence.room.*
 import android.arch.persistence.room.OnConflictStrategy.REPLACE
+import io.reactivex.Single
 
 
 /**
@@ -16,22 +17,22 @@ data class Product(
     val originalPrice: Double,
     val currentPrice: Double,
     val currency: String,
-    @Embedded val image: ProductImage
+    @Embedded
+    val image: ProductImage
 )
 
-// TODO embed or link from product
 @Entity
 data class ProductImage(
-    val url: String,
     @PrimaryKey
-    val id: Long
+    val id: Long,
+    val url: String
 )
 
 @Dao
 interface ProductDao {
 
     @Query("SELECT * FROM Product")
-    fun getAll(): List<Product>
+    fun getAll(): Single<List<Product>>
 
     @Insert(onConflict = REPLACE)
     fun insertMultipleProducts(products: List<Product>)

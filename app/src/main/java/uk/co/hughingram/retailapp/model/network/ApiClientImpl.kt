@@ -1,5 +1,6 @@
 package uk.co.hughingram.retailapp.model.network
 
+import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
@@ -18,10 +19,10 @@ internal class ApiClientImpl(baseUrl: String) : ApiClient {
         .build()
     private val service = retrofit.create(ProductService::class.java)
 
-    override fun getProductList(): Single<List<Product>> =
+    override fun getProductList(): Observable<List<Product>> =
         service.listProducts().map {
             it.toDomainObject()
-        }.subscribeOn(Schedulers.io())
+        }.toObservable().subscribeOn(Schedulers.io())
 
 }
 
@@ -59,7 +60,7 @@ private fun ProductListApiModel.toDomainObject(): List<Product> = products.map {
         originalPrice = it.original_price,
         currentPrice = it.current_price,
         currency = it.currency,
-        image = ProductImage(it.image.url, it.image.id)
+        image = ProductImage(it.image.id, it.image.url)
     )
 }
 

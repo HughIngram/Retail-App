@@ -1,9 +1,9 @@
 package uk.co.hughingram.retailapp.model
 
-import io.reactivex.Single
+import io.reactivex.Observable
 
 interface ProductRepository {
 
-    fun getAllProducts(): Single<List<Product>>
+    fun getAllProducts(): Observable<List<Product>>
 
 }
