@@ -4,9 +4,8 @@ import android.arch.persistence.room.Room
 import android.content.Context
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
-import uk.co.hughingram.retailapp.model.network.ApiClient
 
-class ProductRepositoryImpl(private val apiClient: ApiClient, context: Context) : ProductRepository {
+class ProductRepositoryImpl(private val apiClient: ProductRepository, context: Context) : ProductRepository {
 
     private val productDao = Room
         .databaseBuilder(context, ProductDatabase::class.java, "foo")
