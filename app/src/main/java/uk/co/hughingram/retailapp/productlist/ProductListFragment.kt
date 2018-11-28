@@ -7,10 +7,9 @@ import android.view.View
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.fragment_product_list.*
 import uk.co.hughingram.retailapp.R
-import uk.co.hughingram.retailapp.model.ApiClientProvider
 import uk.co.hughingram.retailapp.model.Product
+import uk.co.hughingram.retailapp.model.ProductRepositoryProvider
 import uk.co.hughingram.retailapp.view.BaseFragment
-import uk.co.hughingram.retailapp.view.ProductRecycler
 
 class ProductListFragment : BaseFragment(), ProductListView {
 
@@ -20,8 +19,8 @@ class ProductListFragment : BaseFragment(), ProductListView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val apiClient = (activity?.application as ApiClientProvider).apiClient
-        presenter = ProductListPresenterImpl(apiClient)
+        val repository = (activity?.application as ProductRepositoryProvider).productRepository
+        presenter = ProductListPresenterImpl(repository)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

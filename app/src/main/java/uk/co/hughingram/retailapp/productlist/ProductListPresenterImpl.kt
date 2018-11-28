@@ -5,9 +5,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.rxkotlin.subscribeBy
-import uk.co.hughingram.retailapp.model.network.ApiClient
+import uk.co.hughingram.retailapp.model.ProductRepository
 
-internal class ProductListPresenterImpl(private val apiClient: ApiClient) : ProductListPresenter {
+internal class ProductListPresenterImpl(private val productListRepository: ProductRepository) : ProductListPresenter {
 
     private val disposables = CompositeDisposable()
 
@@ -19,7 +19,7 @@ internal class ProductListPresenterImpl(private val apiClient: ApiClient) : Prod
     }
 
     private fun refreshProductList(view: ProductListView) {
-        disposables += apiClient.getProductList()
+        disposables += productListRepository.getAllProducts()
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {
                 view.showLoading()

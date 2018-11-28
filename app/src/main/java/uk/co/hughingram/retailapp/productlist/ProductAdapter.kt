@@ -1,4 +1,4 @@
-package uk.co.hughingram.retailapp.view
+package uk.co.hughingram.retailapp.productlist
 
 import android.content.Context
 import android.graphics.Paint
