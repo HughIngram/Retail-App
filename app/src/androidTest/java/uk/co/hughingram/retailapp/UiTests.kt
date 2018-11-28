@@ -2,17 +2,19 @@ package uk.co.hughingram.retailapp
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.InstrumentationRegistry.getInstrumentation
-import android.support.test.espresso.matcher.ViewMatchers.*
+import android.support.test.espresso.matcher.ViewMatchers.withId
+import android.support.test.espresso.matcher.ViewMatchers.withParent
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import android.support.test.uiautomator.UiDevice
-import junit.framework.Assert.assertEquals
+import junit.framework.TestCase.assertEquals
 import org.hamcrest.CoreMatchers.allOf
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import uk.co.hughingram.retailapp.model.ApiClientProvider
 import uk.co.hughingram.retailapp.model.Product
+import uk.co.hughingram.retailapp.model.ProductRepositoryImpl
+import uk.co.hughingram.retailapp.model.ProductRepositoryProvider
 import uk.co.hughingram.retailapp.view.MainActivity
 
 /**
@@ -61,7 +63,8 @@ class UiTests {
     private fun setUpMocksAndLaunch(products: List<Product>, loadSlowly: Boolean): MockApiClient {
         val application = InstrumentationRegistry.getTargetContext().applicationContext
         val mockApiClient = MockApiClient(products, loadSlowly = loadSlowly)
-        (application as ApiClientProvider).apiClient = mockApiClient
+        (application as ProductRepositoryProvider).productRepository =
+                ProductRepositoryImpl(mockApiClient, application)
         activityTestRule.launchActivity(null)
         return mockApiClient
     }
