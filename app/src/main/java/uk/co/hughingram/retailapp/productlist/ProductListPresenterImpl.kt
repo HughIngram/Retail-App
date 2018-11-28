@@ -5,7 +5,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.rxkotlin.subscribeBy
-import uk.co.hughingram.retailapp.model.ApiClient
+import uk.co.hughingram.retailapp.model.network.ApiClient
 
 internal class ProductListPresenterImpl(private val apiClient: ApiClient) : ProductListPresenter {
 

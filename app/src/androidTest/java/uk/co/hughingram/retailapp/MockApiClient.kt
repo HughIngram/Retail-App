@@ -2,10 +2,11 @@ package uk.co.hughingram.retailapp
 
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
-import uk.co.hughingram.retailapp.model.ApiClient
+import uk.co.hughingram.retailapp.model.network.ApiClient
 import uk.co.hughingram.retailapp.model.Product
 
-class MockApiClient(private val productList: List<Product>, private val loadSlowly: Boolean = false) : ApiClient {
+class MockApiClient(private val productList: List<Product>, private val loadSlowly: Boolean = false) :
+    ApiClient {
 
     var finishLoading = false
 

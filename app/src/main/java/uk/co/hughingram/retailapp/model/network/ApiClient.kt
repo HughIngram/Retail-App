@@ -1,6 +1,7 @@
-package uk.co.hughingram.retailapp.model
+package uk.co.hughingram.retailapp.model.network
 
 import io.reactivex.Single
+import uk.co.hughingram.retailapp.model.Product
 
 interface ApiClient {
 
