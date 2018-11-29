@@ -30,7 +30,7 @@ class RepositoryTest {
         val remoteDataSource = object : ProductRepository {
             override fun getAllProducts(): Observable<List<Product>> = Observable.error(Throwable())
         }
-        val repository = ProductRepositoryImpl(localDataSource, remoteDataSource)
+        val repository = ProductRepositoryImpl(localDataSource, remoteDataSource)   // subject under test
 
         // THEN - the repository should return the data from the local data source
         val testObserver = TestObserver<List<Product>>()
@@ -39,6 +39,5 @@ class RepositoryTest {
         testObserver.assertValue(expectedProducts)
         testObserver.assertValueCount(1)
     }
-
 
 }

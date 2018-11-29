@@ -10,10 +10,6 @@ import android.widget.TextView
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
-import uk.co.hughingram.retailapp.model.Product
-import uk.co.hughingram.retailapp.model.ProductImage
-import java.util.*
-import kotlin.random.Random
 
 fun nthChildOf(parentMatcher: Matcher<View>, childPosition: Int): Matcher<View> = object : TypeSafeMatcher<View>() {
 
