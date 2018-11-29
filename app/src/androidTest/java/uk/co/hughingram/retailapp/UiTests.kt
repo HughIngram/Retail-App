@@ -7,6 +7,7 @@ import android.support.test.espresso.matcher.ViewMatchers.withParent
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import android.support.test.uiautomator.UiDevice
+import io.reactivex.Observable
 import junit.framework.TestCase.assertEquals
 import org.hamcrest.CoreMatchers.allOf
 import org.junit.Rule
@@ -15,6 +16,7 @@ import org.junit.runner.RunWith
 import uk.co.hughingram.retailapp.model.Product
 import uk.co.hughingram.retailapp.model.ProductRepositoryImpl
 import uk.co.hughingram.retailapp.model.ProductRepositoryProvider
+import uk.co.hughingram.retailapp.model.WritableProductRepository
 import uk.co.hughingram.retailapp.view.MainActivity
 
 /**
@@ -63,8 +65,14 @@ class UiTests {
     private fun setUpMocksAndLaunch(products: List<Product>, loadSlowly: Boolean): MockApiClient {
         val application = InstrumentationRegistry.getTargetContext().applicationContext
         val mockApiClient = MockApiClient(products, loadSlowly = loadSlowly)
+        val mockLocalRepository = object : WritableProductRepository {
+            // local repo returns an empty list to simulate a clean install
+            override fun getAllProducts(): Observable<List<Product>> = Observable.fromCallable { listOf<Product>() }
+
+            override fun saveProducts(products: List<Product>) = Unit
+        }
         (application as ProductRepositoryProvider).productRepository =
-                ProductRepositoryImpl(mockApiClient, application)
+                ProductRepositoryImpl(mockLocalRepository, mockApiClient)
         activityTestRule.launchActivity(null)
         return mockApiClient
     }

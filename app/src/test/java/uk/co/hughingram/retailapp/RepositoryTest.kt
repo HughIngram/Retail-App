@@ -6,10 +6,7 @@ import io.reactivex.plugins.RxJavaPlugins
 import io.reactivex.schedulers.Schedulers
 import org.junit.Before
 import org.junit.Test
-import uk.co.hughingram.retailapp.model.Product
-import uk.co.hughingram.retailapp.model.ProductImage
-import uk.co.hughingram.retailapp.model.ProductRepository
-import uk.co.hughingram.retailapp.model.ProductRepositoryImpl
+import uk.co.hughingram.retailapp.model.*
 import java.util.*
 import kotlin.random.Random
 
@@ -24,8 +21,9 @@ class RepositoryTest {
     fun repositoryWorksWithBrokenApiClient() {
         // GIVEN - a repository with a local data source and an api data source
         val expectedProducts = listOf(generateRandomProduct(), generateRandomProduct(), generateRandomProduct())
-        val localDataSource = object : ProductRepository {
+        val localDataSource = object : WritableProductRepository {
             override fun getAllProducts(): Observable<List<Product>> = Observable.fromCallable { expectedProducts }
+            override fun saveProducts(products: List<Product>) = Unit
         }
         // WHEN - the api client returns an error
         val remoteDataSource = object : ProductRepository {
@@ -37,7 +35,7 @@ class RepositoryTest {
         val testObserver = TestObserver<List<Product>>()
         repository.getAllProducts().subscribeWith(testObserver)
         testObserver.assertNoErrors()
-//        testObserver.assertValue(expectedProducts)
+        testObserver.assertValue(expectedProducts)
         testObserver.assertValueCount(1)
     }
 

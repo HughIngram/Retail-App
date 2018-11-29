@@ -7,3 +7,9 @@ interface ProductRepository {
     fun getAllProducts(): Observable<List<Product>>
 
 }
+
+interface WritableProductRepository : ProductRepository {
+
+    fun saveProducts(products: List<Product>)
+
+}
