@@ -31,7 +31,7 @@ data class ProductImage(
 @Dao
 interface ProductDao {
 
-    @Query("SELECT * FROM Product ORDER BY name ASC")
+    @Query("SELECT * FROM Product")
     fun getAll(): Single<List<Product>>
 
     @Insert(onConflict = REPLACE)

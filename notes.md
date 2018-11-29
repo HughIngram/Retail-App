@@ -1,7 +1,9 @@
 # Retail App
 
 ## This feature branch
-- [ ] show the product list in order ascending by name
+- [x] show the product list in order ascending by name
+    * putting ordering logic in both the SQL query and the repository is not optimal
+    * consolidate them to a single place
 
 ## Planning Approach
 - Translate spec into user stories / tasks

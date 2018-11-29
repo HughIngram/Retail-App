@@ -34,7 +34,7 @@ class UiTests {
     @Test
     fun productListShowsCorrectItems() {
         /** GIVEN - a list of products**/
-        val products = randomProductList()
+        val products = randomProductList().sortedBy { it.name }
         /** WHEN - opening the app **/
         setUpMocksAndLaunch(products, loadSlowly = false)
 
