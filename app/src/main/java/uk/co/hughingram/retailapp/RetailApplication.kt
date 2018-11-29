@@ -2,7 +2,7 @@ package  uk.co.hughingram.retailapp
 
 import android.app.Application
 import android.content.Context
-import uk.co.hughingram.retailapp.model.ProductLocalRepository
+import uk.co.hughingram.retailapp.model.local.ProductLocalRepository
 import uk.co.hughingram.retailapp.model.ProductRepository
 import uk.co.hughingram.retailapp.model.ProductRepositoryImpl
 import uk.co.hughingram.retailapp.model.ProductRepositoryProvider

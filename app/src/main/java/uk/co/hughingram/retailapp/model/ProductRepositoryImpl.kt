@@ -16,6 +16,9 @@ class ProductRepositoryImpl(
                 .filter { !it.isOnError }
                 .dematerialize()
         ).subscribeOn(Schedulers.io())
+            .map {
+                it.sortedBy { product -> product.name }
+            }
 
     private fun getProductsFromApi(): Observable<List<Product>> = apiClient.getAllProducts()
         .doOnNext {
