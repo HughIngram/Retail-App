@@ -24,7 +24,6 @@ internal class ProductListPresenterImpl(private val productListRepository: Produ
 
     private fun refreshProductList(view: ProductListView) {
         disposables += productListRepository.getAllProducts()
-            .debounce(400, TimeUnit.MILLISECONDS)
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {
                 view.showLoading()

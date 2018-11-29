@@ -1,15 +1,16 @@
 # Retail App
-    -[ ] create new fragment with image displayed
-        * fragment
-        * nav graph
-        * pass data to fragment. Use SafeArgs
+    -[ ] make the fragment fullscreen
+    -[ ] Close button
 
 ## This feature branch
 -[ ] Tapping on an item shows the image fullscreen
-    -[ ] Create image fragment
-    -[ ] Close button
-    -[ ] make the fragment fullscreen
     -[ ] animated transition
+    -[x] Create image fragment
+    -[x] create new fragment with image displayed
+        * fragment
+        * nav graph
+        * pass data to fragment. Use SafeArgs
+-[x] Do not re-load list when going back from image fragment
 
 ### this commit
 
