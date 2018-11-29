@@ -18,6 +18,9 @@ class ProductRepositoryImpl(
         ).subscribeOn(Schedulers.io())
 
     private fun getProductsFromApi(): Observable<List<Product>> = apiClient.getAllProducts()
+        .map {
+            it.sortedBy { product -> product.name }
+        }
         .doOnNext {
             localRepository.saveProducts(it)
         }
