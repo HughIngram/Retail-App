@@ -6,9 +6,10 @@ import io.reactivex.plugins.RxJavaPlugins
 import io.reactivex.schedulers.Schedulers
 import org.junit.Before
 import org.junit.Test
-import uk.co.hughingram.retailapp.model.*
-import java.util.*
-import kotlin.random.Random
+import uk.co.hughingram.retailapp.model.Product
+import uk.co.hughingram.retailapp.model.ProductRepository
+import uk.co.hughingram.retailapp.model.ProductRepositoryImpl
+import uk.co.hughingram.retailapp.model.WritableProductRepository
 
 class RepositoryTest {
 
@@ -39,17 +40,5 @@ class RepositoryTest {
         testObserver.assertValueCount(1)
     }
 
-    private fun generateRandomProduct() = Product(
-        identifier = Random.nextLong(),
-        name = UUID.randomUUID().toString(),
-        brand = UUID.randomUUID().toString(),
-        originalPrice = Random.nextDouble(),
-        currentPrice = Random.nextDouble(),
-        currency = UUID.randomUUID().toString(),
-        image = ProductImage(
-            url = UUID.randomUUID().toString(),
-            id = Random.nextLong()
-        )
-    )
 
 }

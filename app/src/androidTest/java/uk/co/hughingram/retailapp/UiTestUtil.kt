@@ -45,17 +45,3 @@ fun getText(matcher: Matcher<View>): String {
     })
     return string ?: ""
 }
-
-fun generateRandomProduct() = Product(
-    identifier = Random.nextLong(),
-    name = UUID.randomUUID().toString(),
-    brand = UUID.randomUUID().toString(),
-    originalPrice = Random.nextDouble(),
-    currentPrice = Random.nextDouble(),
-    currency = UUID.randomUUID().toString(),
-    image = ProductImage(
-        url = UUID.randomUUID().toString(),
-        id = Random.nextLong()
-    )
-)
-
