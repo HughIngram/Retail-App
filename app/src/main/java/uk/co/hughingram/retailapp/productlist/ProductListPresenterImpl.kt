@@ -17,6 +17,9 @@ internal class ProductListPresenterImpl(private val productListRepository: Produ
         disposables += view.onSwipeRefresh().subscribe {
             refreshProductList(view)
         }
+        disposables += view.onProductClick().subscribe {
+            view.openImage(it)
+        }
     }
 
     private fun refreshProductList(view: ProductListView) {

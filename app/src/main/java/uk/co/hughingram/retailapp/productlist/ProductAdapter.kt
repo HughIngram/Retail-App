@@ -16,7 +16,8 @@ import uk.co.hughingram.retailapp.R
 import uk.co.hughingram.retailapp.model.Product
 
 
-class ProductRecycler(var products: List<Product>) : RecyclerView.Adapter<ProductViewHolder>() {
+class ProductRecycler(var products: List<Product>, private val itemClickListener: (String) -> Unit) :
+    RecyclerView.Adapter<ProductViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_product, parent, false)
@@ -37,7 +38,9 @@ class ProductRecycler(var products: List<Product>) : RecyclerView.Adapter<Produc
         } else {
             holder.originalPrice.visibility = View.INVISIBLE
         }
-        loadImage(holder, product.image.url, ctx)
+        val imageUrl = product.image.url
+        loadImage(holder, imageUrl, ctx)
+        holder.root.setOnClickListener { itemClickListener(imageUrl) }
     }
 
     private fun getPriceString(currentPrice: Double, currency: String, context: Context) =
@@ -60,6 +63,7 @@ class ProductRecycler(var products: List<Product>) : RecyclerView.Adapter<Produc
 private fun Double.formatAsPrice() = "%.2f".format(this)
 
 class ProductViewHolder(productView: View) : RecyclerView.ViewHolder(productView) {
+    val root: View = itemView.root
     val name: TextView = itemView.name
     val currentPrice: TextView = itemView.current_price
     val originalPrice: TextView = itemView.original_price
