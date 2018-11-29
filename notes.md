@@ -2,12 +2,6 @@
 
 ## This feature branch
 ### this commit
-- [ ] set up a grid layout for items
-    - [ ] use GridLayoutManager
-
-- [ ] show images of products in the list
-- [ ] import Glide
-- [ ] loading / error state for images
 
 ## Planning Approach
 - Translate spec into user stories / tasks
@@ -56,4 +50,9 @@ testing
 - [x] show the product list in order ascending by name
     * putting ordering logic in both the SQL query and the repository is not optimal
     * consolidate them to a single place
-
+- [x] set up a grid layout for items
+    - [x] use GridLayoutManager
+- [x] handle long names in item layout
+- [x] import Glide
+- [x] show images of products in the list
+- [x] loading / error state for images
