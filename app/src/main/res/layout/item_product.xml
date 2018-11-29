@@ -4,16 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?selectableItemBackground"
-    android:clickable="true"
-    android:focusable="true"
-    android:padding="@dimen/margin_edges">
+    android:background="?selectableItemBackground">
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/colorAccent"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:layout_constraintDimensionRatio="1:1" />
 
     <TextView
         android:id="@+id/name"
         style="@style/AppTheme.Text.Heading"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_edges"
+        android:layout_marginTop="@dimen/margin_edges"
         android:layout_marginEnd="@dimen/margin_edges"
         app:layout_constraintEnd_toStartOf="@id/current_price"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,10 +35,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_items"
+        android:layout_marginBottom="@dimen/margin_edges"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/original_price"
         app:layout_constraintStart_toStartOf="@id/name"
-        app:layout_constraintTop_toBottomOf="@id/name"
         tools:text="Buggati" />
 
     <TextView
@@ -37,8 +46,9 @@
         style="@style/AppTheme.Text.Heading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_edges"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/name"
         tools:text="1.0 CHF" />
 
     <TextView
@@ -46,10 +56,8 @@
         style="@style/AppTheme.Text.Subheading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_items"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/current_price"
+        app:layout_constraintEnd_toEndOf="@id/current_price"
+        app:layout_constraintTop_toTopOf="@id/brand"
         tools:text="2.0 CHF" />
 
 </android.support.constraint.ConstraintLayout>

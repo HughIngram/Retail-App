@@ -1,9 +1,13 @@
 # Retail App
 
 ## This feature branch
-- [x] show the product list in order ascending by name
-    * putting ordering logic in both the SQL query and the repository is not optimal
-    * consolidate them to a single place
+### this commit
+- [ ] set up a grid layout for items
+    - [ ] use GridLayoutManager
+
+- [ ] show images of products in the list
+- [ ] import Glide
+- [ ] loading / error state for images
 
 ## Planning Approach
 - Translate spec into user stories / tasks
@@ -49,3 +53,7 @@ testing
 - [x] get data from local and remote db
 - [x] Use local database if api call fails 
     * Unit test
+- [x] show the product list in order ascending by name
+    * putting ordering logic in both the SQL query and the repository is not optimal
+    * consolidate them to a single place
+
