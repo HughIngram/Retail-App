@@ -2,6 +2,7 @@ package  uk.co.hughingram.retailapp
 
 import android.app.Application
 import android.content.Context
+import uk.co.hughingram.retailapp.model.ProductLocalRepository
 import uk.co.hughingram.retailapp.model.ProductRepository
 import uk.co.hughingram.retailapp.model.ProductRepositoryImpl
 import uk.co.hughingram.retailapp.model.ProductRepositoryProvider
@@ -14,7 +15,8 @@ class RetailApplication : Application(), ProductRepositoryProvider {
     override fun onCreate() {
         super.onCreate()
         val apiClient = ApiClientImpl(BuildConfig.SERVER_URL)
-        productRepository = ProductRepositoryImpl(apiClient, this as Context)
+        val localDataSource = ProductLocalRepository(this as Context)
+        productRepository = ProductRepositoryImpl(localDataSource, apiClient)
     }
 
 }
