@@ -2,6 +2,7 @@ package uk.co.hughingram.retailapp.productdetail
 
 import android.os.Bundle
 import android.view.View
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_image.*
 import uk.co.hughingram.retailapp.R
@@ -17,5 +18,8 @@ class ImageFragment : BaseFragment() {
         Glide.with(context!!)
             .load(url)
             .into(image_fullscreen)
+        btn_close.setOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 }

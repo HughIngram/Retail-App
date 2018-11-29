@@ -6,7 +6,6 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.rxkotlin.subscribeBy
 import uk.co.hughingram.retailapp.model.ProductRepository
-import java.util.concurrent.TimeUnit
 
 internal class ProductListPresenterImpl(private val productListRepository: ProductRepository) : ProductListPresenter {
 
