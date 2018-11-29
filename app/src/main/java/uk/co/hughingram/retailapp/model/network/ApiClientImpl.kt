@@ -9,8 +9,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import uk.co.hughingram.retailapp.model.Product
 import uk.co.hughingram.retailapp.model.ProductImage
+import uk.co.hughingram.retailapp.model.ProductRepository
 
-internal class ApiClientImpl(baseUrl: String) : ApiClient {
+internal class ApiClientImpl(baseUrl: String) : ProductRepository {
 
     private val retrofit = Retrofit.Builder()
         .baseUrl(baseUrl)
@@ -19,7 +20,7 @@ internal class ApiClientImpl(baseUrl: String) : ApiClient {
         .build()
     private val service = retrofit.create(ProductService::class.java)
 
-    override fun getProductList(): Observable<List<Product>> =
+    override fun getAllProducts(): Observable<List<Product>> =
         service.listProducts().map {
             it.toDomainObject()
         }.toObservable().subscribeOn(Schedulers.io())

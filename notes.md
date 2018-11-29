@@ -1,11 +1,11 @@
 # Retail App
 
 ## This feature branch
-- [x] Get the list from the API, and print it to logcat
-- [x] Show a super-basic product list in the UI
-- [x] UI test the above
-    * mock 3 items and verify they're all shown
-    * copy over any relavant tests from EthScan
+- Implement repository pattern with Room
+- [x] get data from local and remote db
+- [ ] use in-memory Room for UI tests??
+- [x] Use local database if api call fails 
+    * Unit test
 
 ## Planning Approach
 - Translate spec into user stories / tasks
@@ -40,3 +40,10 @@ testing
 - JVM unit
 - UI
 - Test Orchestrator
+
+# Done
+- [x] Get the list from the API, and print it to logcat
+- [x] Show a super-basic product list in the UI
+- [x] UI test the above
+    * mock 3 items and verify they're all shown
+    * copy over any relavant tests from EthScan

@@ -1,30 +1,25 @@
 package uk.co.hughingram.retailapp.model
 
-import android.arch.persistence.room.Room
-import android.content.Context
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
-import uk.co.hughingram.retailapp.model.network.ApiClient
 
-class ProductRepositoryImpl(private val apiClient: ApiClient, context: Context) : ProductRepository {
+class ProductRepositoryImpl(
+    private val localRepository: WritableProductRepository,
+    private val apiClient: ProductRepository
+) : ProductRepository {
 
-    private val productDao = Room
-        .databaseBuilder(context, ProductDatabase::class.java, "foo")
-        .build()
-        .productDao()
+    override fun getAllProducts(): Observable<List<Product>> =
+        Observable.concatArrayEager(
+            localRepository.getAllProducts(),
+            getProductsFromApi()
+                .materialize()
+                .filter { !it.isOnError }
+                .dematerialize()
+        ).subscribeOn(Schedulers.io())
 
-    override fun getAllProducts(): Observable<List<Product>> = Observable.concatArray(
-        getProductsFromDb(),
-        getProductsFromApi()
-    ).onErrorResumeNext(getProductsFromDb())
-        .subscribeOn(Schedulers.io())
-
-    private fun getProductsFromDb(): Observable<List<Product>> =
-        productDao.getAll().toObservable()
-
-    private fun getProductsFromApi(): Observable<List<Product>> =
-        apiClient.getProductList().doAfterNext {
-            productDao.insertMultipleProducts(it)
+    private fun getProductsFromApi(): Observable<List<Product>> = apiClient.getAllProducts()
+        .doOnNext {
+            localRepository.saveProducts(it)
         }
 
 }

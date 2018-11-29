@@ -6,6 +6,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.rxkotlin.subscribeBy
 import uk.co.hughingram.retailapp.model.ProductRepository
+import java.util.concurrent.TimeUnit
 
 internal class ProductListPresenterImpl(private val productListRepository: ProductRepository) : ProductListPresenter {
 
@@ -20,6 +21,7 @@ internal class ProductListPresenterImpl(private val productListRepository: Produ
 
     private fun refreshProductList(view: ProductListView) {
         disposables += productListRepository.getAllProducts()
+            .debounce(400, TimeUnit.MILLISECONDS)
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {
                 view.showLoading()

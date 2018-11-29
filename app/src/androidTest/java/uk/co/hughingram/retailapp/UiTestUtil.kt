@@ -10,10 +10,6 @@ import android.widget.TextView
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
-import uk.co.hughingram.retailapp.model.Product
-import uk.co.hughingram.retailapp.model.ProductImage
-import java.util.*
-import kotlin.random.Random
 
 fun nthChildOf(parentMatcher: Matcher<View>, childPosition: Int): Matcher<View> = object : TypeSafeMatcher<View>() {
 
@@ -45,17 +41,3 @@ fun getText(matcher: Matcher<View>): String {
     })
     return string ?: ""
 }
-
-fun generateRandomProduct() = Product(
-    identifier = Random.nextLong(),
-    name = UUID.randomUUID().toString(),
-    brand = UUID.randomUUID().toString(),
-    originalPrice = Random.nextDouble(),
-    currentPrice = Random.nextDouble(),
-    currency = UUID.randomUUID().toString(),
-    image = ProductImage(
-        url = UUID.randomUUID().toString(),
-        id = Random.nextLong()
-    )
-)
-
