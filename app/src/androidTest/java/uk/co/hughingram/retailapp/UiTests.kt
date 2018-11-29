@@ -48,9 +48,6 @@ class UiTests {
         }
     }
 
-    private fun randomProductList(): List<Product> =
-        listOf(generateRandomProduct(), generateRandomProduct(), generateRandomProduct())
-
     @Test
     fun rotatePhoneWhileLoading() {
         val products = randomProductList()

@@ -21,7 +21,7 @@ class RepositoryTest {
     @Test
     fun repositoryWorksWithBrokenApiClient() {
         // GIVEN - a repository with a local data source and an api data source
-        val expectedProducts = listOf(generateRandomProduct(), generateRandomProduct(), generateRandomProduct())
+        val expectedProducts = randomProductList()
         val localDataSource = object : WritableProductRepository {
             override fun getAllProducts(): Observable<List<Product>> = Observable.fromCallable { expectedProducts }
             override fun saveProducts(products: List<Product>) = Unit

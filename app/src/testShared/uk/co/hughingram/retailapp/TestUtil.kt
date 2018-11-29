@@ -17,3 +17,6 @@ fun generateRandomProduct() = Product(
         id = Random.nextLong()
     )
 )
+
+fun randomProductList(): List<Product> =
+    listOf(generateRandomProduct(), generateRandomProduct(), generateRandomProduct())
