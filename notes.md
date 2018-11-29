@@ -2,11 +2,12 @@
 
 ## This feature branch
 ### this commit
-- [ ] set up a grid layout for items
-    - [ ] use GridLayoutManager
-
-- [ ] show images of products in the list
 - [ ] import Glide
+
+- [x] set up a grid layout for items
+    - [x] use GridLayoutManager
+- [x] handle long names in item layout
+- [ ] show images of products in the list
 - [ ] loading / error state for images
 
 ## Planning Approach
