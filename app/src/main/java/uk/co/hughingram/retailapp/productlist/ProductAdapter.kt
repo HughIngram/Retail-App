@@ -2,11 +2,15 @@ package uk.co.hughingram.retailapp.productlist
 
 import android.content.Context
 import android.graphics.Paint
+import android.support.v4.widget.CircularProgressDrawable
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.item_product.view.*
 import uk.co.hughingram.retailapp.R
 import uk.co.hughingram.retailapp.model.Product
@@ -33,10 +37,22 @@ class ProductRecycler(var products: List<Product>) : RecyclerView.Adapter<Produc
         } else {
             holder.originalPrice.visibility = View.INVISIBLE
         }
+        loadImage(holder, product.image.url, ctx)
     }
 
     private fun getPriceString(currentPrice: Double, currency: String, context: Context) =
         context.getString(R.string.product_price, currentPrice.formatAsPrice(), currency)
+
+    private fun loadImage(holder: ProductViewHolder, url: String, ctx: Context) {
+        val circularProgressDrawable = CircularProgressDrawable(ctx)
+        circularProgressDrawable.strokeWidth = 5f
+        circularProgressDrawable.centerRadius = 30f
+        circularProgressDrawable.start()
+        Glide.with(ctx)
+            .load(url)
+            .apply(RequestOptions().placeholder(circularProgressDrawable))
+            .into(holder.image)
+    }
 
     override fun getItemCount() = products.size
 }
@@ -48,4 +64,5 @@ class ProductViewHolder(productView: View) : RecyclerView.ViewHolder(productView
     val currentPrice: TextView = itemView.current_price
     val originalPrice: TextView = itemView.original_price
     val brand: TextView = itemView.brand
+    val image: ImageView = itemView.image
 }

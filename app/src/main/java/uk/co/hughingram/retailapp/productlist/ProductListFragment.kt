@@ -2,7 +2,7 @@ package uk.co.hughingram.retailapp.productlist
 
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.GridLayoutManager
 import android.view.View
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.fragment_product_list.*
@@ -30,10 +30,13 @@ class ProductListFragment : BaseFragment(), ProductListView {
     }
 
     private fun initialiseAdapter() {
-        product_recycler.layoutManager = LinearLayoutManager(context)
+        product_recycler.layoutManager = GridLayoutManager(context, 2)
         product_recycler.adapter = ProductRecycler(mutableListOf())
-        val decoration = DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
-        product_recycler.addItemDecoration(decoration)
+        listOf(GridLayoutManager.VERTICAL, GridLayoutManager.HORIZONTAL).map {
+            DividerItemDecoration(context, it)
+        }.map {
+            product_recycler.addItemDecoration(it)
+        }
     }
 
     override fun updateProductList(products: List<Product>) {
