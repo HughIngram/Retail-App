@@ -1,11 +1,7 @@
 # Retail App
 
 ## This feature branch
-- Implement repository pattern with Room
-- [x] get data from local and remote db
-- [ ] use in-memory Room for UI tests??
-- [x] Use local database if api call fails 
-    * Unit test
+- [ ] show the product list in order ascending by name
 
 ## Planning Approach
 - Translate spec into user stories / tasks
@@ -47,3 +43,7 @@ testing
 - [x] UI test the above
     * mock 3 items and verify they're all shown
     * copy over any relavant tests from EthScan
+- Implement repository pattern with Room
+- [x] get data from local and remote db
+- [x] Use local database if api call fails 
+    * Unit test

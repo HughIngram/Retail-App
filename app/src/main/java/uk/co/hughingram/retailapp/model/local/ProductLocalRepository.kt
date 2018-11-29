@@ -1,8 +1,11 @@
-package uk.co.hughingram.retailapp.model
+package uk.co.hughingram.retailapp.model.local
 
 import android.arch.persistence.room.Room
 import android.content.Context
 import io.reactivex.Observable
+import uk.co.hughingram.retailapp.model.Product
+import uk.co.hughingram.retailapp.model.ProductDatabase
+import uk.co.hughingram.retailapp.model.WritableProductRepository
 
 class ProductLocalRepository(context: Context) : WritableProductRepository {
 
