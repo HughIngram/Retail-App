@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_graph"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
     app:startDestination="@id/productListFragment">
 
     <fragment
         android:id="@+id/productListFragment"
-        android:name="uk.co.hughingram.retailapp.view.ProductListFragment"
-        android:label="ProductListFragment" />
+        android:name="uk.co.hughingram.retailapp.productlist.ProductListFragment"
+        android:label="ProductListFragment">
+        <action
+            android:id="@+id/action_productListFragment_to_imageFragment"
+            app:destination="@id/imageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/imageFragment"
+        android:name="uk.co.hughingram.retailapp.productdetail.ImageFragment"
+        android:label="ImageFragment">
+        <argument
+            android:name="imageUrl"
+            app:argType="string" />
+    </fragment>
+
 </navigation>

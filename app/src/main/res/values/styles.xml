@@ -8,4 +8,16 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.Text" parent="AppTheme">
+        <item name="android:textColor">#FFF</item>
+    </style>
+
+    <style name="AppTheme.Text.Subheading" parent="AppTheme.Text">
+        <!--placeholder-->
+    </style>
+
+    <style name="AppTheme.Text.Heading" parent="AppTheme.Text">
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>
