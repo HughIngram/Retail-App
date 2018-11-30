@@ -1,6 +1,18 @@
 # Retail App
+    -[ ] make the fragment fullscreen
 
 ## This feature branch
+-[ ] Tapping on an item shows the image fullscreen
+    -[ ] animated transition
+    -[x] Create image fragment
+    -[x] create new fragment with image displayed
+        * fragment
+        * nav graph
+        * pass data to fragment. Use SafeArgs
+    -[x] Close button
+-[ ] preserve list position when going back
+-[x] Do not re-load list when going back from image fragment
+
 ### this commit
 
 ## Planning Approach
@@ -19,6 +31,7 @@
 ## Techniques, libraries to demonstrate
 patterns
 - MVP pattern
+    * Adapter click logic in presenter, via higher-order function
 - Repository pattern
 - Single Activity
 - Dependency Injection
