@@ -11,6 +11,7 @@ import uk.co.hughingram.retailapp.view.BaseFragment
 class ImageFragment : BaseFragment() {
 
     override val fragmentLayout = R.layout.fragment_image
+    override val isFullScreen = true
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

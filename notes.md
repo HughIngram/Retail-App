@@ -1,6 +1,5 @@
 # Retail App
     -[ ] make the fragment fullscreen
-    -[ ] Close button
 
 ## This feature branch
 -[ ] Tapping on an item shows the image fullscreen
@@ -10,6 +9,8 @@
         * fragment
         * nav graph
         * pass data to fragment. Use SafeArgs
+    -[x] Close button
+-[ ] preserve list position when going back
 -[x] Do not re-load list when going back from image fragment
 
 ### this commit

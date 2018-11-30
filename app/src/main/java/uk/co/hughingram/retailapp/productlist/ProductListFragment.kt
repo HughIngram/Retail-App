@@ -16,6 +16,7 @@ import uk.co.hughingram.retailapp.view.BaseFragment
 class ProductListFragment : BaseFragment(), ProductListView {
 
     override val fragmentLayout = R.layout.fragment_product_list
+    override val isFullScreen = false
 
     private lateinit var presenter: ProductListPresenter
 
