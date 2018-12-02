@@ -37,8 +37,8 @@ class RepositoryTest {
         val testObserver = TestObserver<List<Product>>()
         repository.getAllProducts().subscribeWith(testObserver)
         testObserver.assertNoErrors()
-        testObserver.assertValue(expectedProducts)
-        testObserver.assertValueCount(1)
+        testObserver.assertValues(listOf(), expectedProducts)
+        testObserver.assertValueCount(2)
     }
 
     @Test
@@ -65,7 +65,7 @@ class RepositoryTest {
         val testObserver = TestObserver<List<Product>>()
         repository.getAllProducts().subscribeWith(testObserver)
         testObserver.assertNoErrors()
-        testObserver.assertValueCount(2)
+        testObserver.assertValueCount(3)
         val apiValue = testObserver.values().toList().sortedBy { it.size }.last()
         assertEquals(expectedProducts.sortedBy { it.name }, apiValue)
     }
@@ -94,7 +94,7 @@ class RepositoryTest {
         val testObserver = TestObserver<List<Product>>()
         repository.getAllProducts().subscribeWith(testObserver)
         testObserver.assertNoErrors()
-        testObserver.assertValueCount(2)
+        testObserver.assertValueCount(3)
         val dbValue = testObserver.values().toList().sortedBy { it.size }.last()
         assertEquals(expectedProducts.sortedBy { it.name }, dbValue)
     }
