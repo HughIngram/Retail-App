@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.navigation.NavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.item_product.view.*
@@ -16,7 +17,7 @@ import uk.co.hughingram.retailapp.R
 import uk.co.hughingram.retailapp.model.Product
 
 
-class ProductRecycler(var products: List<Product>, private val itemClickListener: (String) -> Unit) :
+class ProductRecycler(var products: List<Product>, private val itemClickListener: (String, ImageView) -> Unit) :
     RecyclerView.Adapter<ProductViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
@@ -40,7 +41,11 @@ class ProductRecycler(var products: List<Product>, private val itemClickListener
         }
         val imageUrl = product.image.url
         loadImage(holder, imageUrl, ctx)
-        holder.root.setOnClickListener { itemClickListener(imageUrl) }
+        holder.image.transitionName = imageUrl
+        holder.root.setOnClickListener {
+//            itemClickListener(imageUrl)
+            itemClickListener(imageUrl, holder.image)     // TODO refactor?
+        }
     }
 
     private fun getPriceString(currentPrice: Double, currency: String, context: Context) =
