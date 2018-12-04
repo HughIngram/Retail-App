@@ -48,25 +48,31 @@ class ProductListFragment : BaseFragment(), ProductListView {
         return inflater.inflate(fragmentLayout, container, false)
     }
 
+    private var adapter: ProductRecycler? = null
+
     private fun initialiseAdapter() {
 //        val itemClickListener = { s: String -> productClickEmitter.onNext(s) }
+        if (adapter == null) {
+            val itemClickListener = { url: String, image: ImageView ->
+                // TODO the string is the transition name, which must be unique to each list item.
+                val extras = FragmentNavigatorExtras(image to url)
+                val directions =
+                    ProductListFragmentDirections.actionProductListFragmentToImageFragment(url)
+                Navigation.findNavController(image) .navigate(directions, extras)
+            }
+            adapter = ProductRecycler(mutableListOf(), itemClickListener)
+        }
         product_recycler.layoutManager = GridLayoutManager(context, 2)
 
         product_recycler.viewTreeObserver.addOnPreDrawListener {
             startPostponedEnterTransition()
             true
         }
-        val itemClickListener = { url: String, image: ImageView ->
-            // TODO the string is the transition name, which must be unique to each list item.
-            val extras = FragmentNavigatorExtras(image to url)
-            val directions =
-                ProductListFragmentDirections.actionProductListFragmentToImageFragment(url)
-            Navigation.findNavController(image) .navigate(directions, extras)
-        }
         postponeEnterTransition()
 
 
-        product_recycler.adapter = ProductRecycler(mutableListOf(), itemClickListener)
+        product_recycler.adapter = adapter
+        product_recycler.adapter = adapter
         listOf(GridLayoutManager.VERTICAL, GridLayoutManager.HORIZONTAL).map {
             DividerItemDecoration(context, it)
         }.map {
