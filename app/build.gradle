@@ -25,6 +25,7 @@ android {
         }
     }
     testOptions {
+        unitTests.returnDefaultValues = true
         execution 'ANDROID_TEST_ORCHESTRATOR'
     }
 
@@ -46,6 +47,7 @@ dependencies {
 
     // testing
     testImplementation 'junit:junit:4.12'
+    testImplementation 'com.nhaarman:mockito-kotlin:1.5.0'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     androidTestImplementation 'com.android.support:support-annotations:28.0.0'
     androidTestImplementation 'com.android.support.test:rules:1.0.2'

@@ -1,4 +1,4 @@
-package uk.co.hughingram.retailapp
+package uk.co.hughingram.retailapp.model
 
 import io.reactivex.Observable
 import io.reactivex.observers.TestObserver
@@ -7,10 +7,8 @@ import io.reactivex.schedulers.Schedulers
 import junit.framework.TestCase.assertEquals
 import org.junit.Before
 import org.junit.Test
-import uk.co.hughingram.retailapp.model.Product
-import uk.co.hughingram.retailapp.model.ProductRepository
-import uk.co.hughingram.retailapp.model.ProductRepositoryImpl
-import uk.co.hughingram.retailapp.model.WritableProductRepository
+import uk.co.hughingram.retailapp.generateRandomProduct
+import uk.co.hughingram.retailapp.randomProductList
 
 class RepositoryTest {
 
