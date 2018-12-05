@@ -7,17 +7,14 @@ import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.FragmentNavigatorExtras
-import androidx.navigation.fragment.findNavController
 import io.reactivex.Observable
 import io.reactivex.ObservableEmitter
 import kotlinx.android.synthetic.main.fragment_product_list.*
 import uk.co.hughingram.retailapp.R
 import uk.co.hughingram.retailapp.model.Product
 import uk.co.hughingram.retailapp.model.ProductRepositoryProvider
-import uk.co.hughingram.retailapp.productdetail.ImageFragment
 import uk.co.hughingram.retailapp.view.BaseFragment
 
 class ProductListFragment : BaseFragment(), ProductListView {
@@ -40,25 +37,21 @@ class ProductListFragment : BaseFragment(), ProductListView {
         presenter.onAttach(this)
     }
 
-    final override fun onCreateView(
+    override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        sharedElementReturnTransition = TransitionInflater.from(context).inflateTransition(R.transition.move)   // TODO this should go onCreateView?
+        sharedElementReturnTransition = TransitionInflater.from(context)
+            .inflateTransition(R.transition.move)   // TODO this should go onCreateView?
         return inflater.inflate(fragmentLayout, container, false)
     }
 
     private var adapter: ProductRecycler? = null
 
     private fun initialiseAdapter() {
-//        val itemClickListener = { s: String -> productClickEmitter.onNext(s) }
         if (adapter == null) {
-            val itemClickListener = { url: String, image: ImageView ->
-                // TODO the string is the transition name, which must be unique to each list item.
-                val extras = FragmentNavigatorExtras(image to url)
-                val directions =
-                    ProductListFragmentDirections.actionProductListFragmentToImageFragment(url)
-                Navigation.findNavController(image) .navigate(directions, extras)
+            val itemClickListener = { url: String ->
+                productClickEmitter.onNext(url)
             }
             adapter = ProductRecycler(mutableListOf(), itemClickListener)
         }
@@ -69,8 +62,6 @@ class ProductListFragment : BaseFragment(), ProductListView {
             true
         }
         postponeEnterTransition()
-
-
         product_recycler.adapter = adapter
         product_recycler.adapter = adapter
         listOf(GridLayoutManager.VERTICAL, GridLayoutManager.HORIZONTAL).map {
@@ -110,8 +101,11 @@ class ProductListFragment : BaseFragment(), ProductListView {
     }
 
     override fun openImage(url: String) {
-//        val directions =
-//            ProductListFragmentDirections.actionProductListFragmentToImageFragment(url)
-//        findNavController().navigate(directions)
+        val index = adapter?.products?.indexOfFirst { it.image.url == url }
+        val vh = product_recycler.findViewHolderForAdapterPosition(index!!) as ProductViewHolder
+        val image = vh.image
+        val extras = FragmentNavigatorExtras(image to url)
+        val directions = ProductListFragmentDirections.actionProductListFragmentToImageFragment(url)
+        Navigation.findNavController(image).navigate(directions, extras)
     }
 }

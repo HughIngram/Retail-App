@@ -17,11 +17,9 @@ interface ProductListView {
 
     /**
      * Emits the url of the image for the clicked product.
-     * // TODO pass a serialized Product or a product ID
      */
     fun onProductClick(): Observable<String>
 
-    // TODO pass a serialized Product or a product ID
     fun openImage(url: String)
 
     fun onSwipeRefresh(): Observable<Unit>
