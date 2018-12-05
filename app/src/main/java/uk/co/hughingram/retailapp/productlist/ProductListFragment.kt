@@ -30,9 +30,9 @@ class ProductListFragment : BaseFragment(), ProductListView {
         presenter = ProductListPresenterImpl(repository)
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        postponeEnterTransition()
         initialiseAdapter()
         presenter.onAttach(this)
     }
@@ -50,19 +50,15 @@ class ProductListFragment : BaseFragment(), ProductListView {
 
     private fun initialiseAdapter() {
         if (adapter == null) {
-            val itemClickListener = { url: String ->
+            adapter = ProductRecycler(mutableListOf()) { url: String ->
                 productClickEmitter.onNext(url)
             }
-            adapter = ProductRecycler(mutableListOf(), itemClickListener)
         }
         product_recycler.layoutManager = GridLayoutManager(context, 2)
-
         product_recycler.viewTreeObserver.addOnPreDrawListener {
             startPostponedEnterTransition()
             true
         }
-        postponeEnterTransition()
-        product_recycler.adapter = adapter
         product_recycler.adapter = adapter
         listOf(GridLayoutManager.VERTICAL, GridLayoutManager.HORIZONTAL).map {
             DividerItemDecoration(context, it)
