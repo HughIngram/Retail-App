@@ -32,10 +32,15 @@ class ProductListFragment : BaseFragment(), ProductListView {
         presenter.onAttach(this)
     }
 
+    private var adapter: ProductRecycler? = null
+
     private fun initialiseAdapter() {
-        val itemClickListener = { s: String -> productClickEmitter.onNext(s) }
+        if (adapter == null) {
+            val itemClickListener = { s: String -> productClickEmitter.onNext(s) }
+            adapter = ProductRecycler(mutableListOf(), itemClickListener)
+        }
         product_recycler.layoutManager = GridLayoutManager(context, 2)
-        product_recycler.adapter = ProductRecycler(mutableListOf(), itemClickListener)
+        product_recycler.adapter = adapter
         listOf(GridLayoutManager.VERTICAL, GridLayoutManager.HORIZONTAL).map {
             DividerItemDecoration(context, it)
         }.map {
