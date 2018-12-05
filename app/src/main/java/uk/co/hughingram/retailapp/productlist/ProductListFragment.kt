@@ -3,8 +3,12 @@ package uk.co.hughingram.retailapp.productlist
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.GridLayoutManager
+import android.transition.TransitionInflater
+import android.view.LayoutInflater
 import android.view.View
-import androidx.navigation.fragment.findNavController
+import android.view.ViewGroup
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import io.reactivex.Observable
 import io.reactivex.ObservableEmitter
 import kotlinx.android.synthetic.main.fragment_product_list.*
@@ -28,14 +32,34 @@ class ProductListFragment : BaseFragment(), ProductListView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        postponeEnterTransition()
         initialiseAdapter()
         presenter.onAttach(this)
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        sharedElementReturnTransition =
+                TransitionInflater.from(context).inflateTransition(R.transition.move)
+        return inflater.inflate(fragmentLayout, container, false)
+    }
+
+    private var adapter: ProductRecycler? = null
+
     private fun initialiseAdapter() {
-        val itemClickListener = { s: String -> productClickEmitter.onNext(s) }
+        if (adapter == null) {
+            adapter = ProductRecycler(mutableListOf()) { url: String ->
+                productClickEmitter.onNext(url)
+            }
+        }
         product_recycler.layoutManager = GridLayoutManager(context, 2)
-        product_recycler.adapter = ProductRecycler(mutableListOf(), itemClickListener)
+        product_recycler.viewTreeObserver.addOnPreDrawListener {
+            startPostponedEnterTransition()
+            true
+        }
+        product_recycler.adapter = adapter
         listOf(GridLayoutManager.VERTICAL, GridLayoutManager.HORIZONTAL).map {
             DividerItemDecoration(context, it)
         }.map {
@@ -73,8 +97,11 @@ class ProductListFragment : BaseFragment(), ProductListView {
     }
 
     override fun openImage(url: String) {
-        val directions =
-            ProductListFragmentDirections.actionProductListFragmentToImageFragment(url)
-        findNavController().navigate(directions)
+        val index = adapter?.products?.indexOfFirst { it.image.url == url }
+        val vh = product_recycler.findViewHolderForAdapterPosition(index!!) as ProductViewHolder
+        val image = vh.image
+        val extras = FragmentNavigatorExtras(image to url)
+        val directions = ProductListFragmentDirections.actionProductListFragmentToImageFragment(url)
+        Navigation.findNavController(image).navigate(directions, extras)
     }
 }

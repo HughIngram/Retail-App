@@ -40,7 +40,10 @@ class ProductRecycler(var products: List<Product>, private val itemClickListener
         }
         val imageUrl = product.image.url
         loadImage(holder, imageUrl, ctx)
-        holder.root.setOnClickListener { itemClickListener(imageUrl) }
+        holder.image.transitionName = imageUrl
+        holder.root.setOnClickListener {
+            itemClickListener(imageUrl)
+        }
     }
 
     private fun getPriceString(currentPrice: Double, currency: String, context: Context) =
@@ -53,7 +56,7 @@ class ProductRecycler(var products: List<Product>, private val itemClickListener
         circularProgressDrawable.start()
         Glide.with(ctx)
             .load(url)
-            .apply(RequestOptions().placeholder(circularProgressDrawable))
+            .apply(RequestOptions().placeholder(circularProgressDrawable).dontAnimate())
             .into(holder.image)
     }
 
