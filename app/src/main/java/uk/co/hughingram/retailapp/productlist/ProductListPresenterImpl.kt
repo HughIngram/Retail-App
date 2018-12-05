@@ -27,13 +27,13 @@ internal class ProductListPresenterImpl(private val productListRepository: Produ
             .doOnSubscribe {
                 view.showLoading()
             }
-            .doFinally {
-                view.hideLoading()
-            }
+            .doFinally { view.hideLoading() }
             .subscribeBy(
                 onNext = {
                     view.updateProductList(it)
-                    Log.i("test123", it.toString())
+                    if (it.isNotEmpty()) {
+                        view.hideLoading()
+                    }
                 },
                 onError = {
                     Log.e("test123", "error fetching product list", it)
