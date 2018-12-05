@@ -41,8 +41,8 @@ class ProductListFragment : BaseFragment(), ProductListView {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        sharedElementReturnTransition = TransitionInflater.from(context)
-            .inflateTransition(R.transition.move)   // TODO this should go onCreateView?
+        sharedElementReturnTransition =
+                TransitionInflater.from(context).inflateTransition(R.transition.move)
         return inflater.inflate(fragmentLayout, container, false)
     }
 

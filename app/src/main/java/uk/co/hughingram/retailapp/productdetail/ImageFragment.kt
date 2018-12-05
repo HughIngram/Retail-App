@@ -21,38 +21,42 @@ class ImageFragment : BaseFragment() {
     override val fragmentLayout = R.layout.fragment_image
     override val isFullScreen = true
 
-    final override fun onCreateView(
+    override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(R.transition.move)   // TODO this should go onCreateView?
+        sharedElementEnterTransition =
+                TransitionInflater.from(context).inflateTransition(R.transition.move)
         postponeEnterTransition()
         return inflater.inflate(fragmentLayout, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val url = ImageFragmentArgs.fromBundle(arguments).imageUrl
-
         image_fullscreen.transitionName = url
-
         postponeEnterTransition()
-
         Glide.with(context!!)
             .load(url)
-
             .listener(object : RequestListener<Drawable?> {
-                override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable?>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                override fun onResourceReady(
+                    resource: Drawable?,
+                    model: Any?,
+                    target: Target<Drawable?>?,
+                    dataSource: DataSource?,
+                    isFirstResource: Boolean
+                ): Boolean {
                     startPostponedEnterTransition()
                     return false
                 }
-                override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable?>?, isFirstResource: Boolean): Boolean {
+
+                override fun onLoadFailed(
+                    e: GlideException?, model: Any?, target: Target<Drawable?>?, isFirstResource: Boolean
+                ): Boolean {
                     startPostponedEnterTransition()
                     return false
                 }
             })
-
             .into(image_fullscreen)
         btn_close.setOnClickListener {
             findNavController().navigateUp()

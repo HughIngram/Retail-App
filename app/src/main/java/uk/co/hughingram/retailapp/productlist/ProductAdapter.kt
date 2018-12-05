@@ -43,7 +43,7 @@ class ProductRecycler(var products: List<Product>, private val itemClickListener
         loadImage(holder, imageUrl, ctx)
         holder.image.transitionName = imageUrl
         holder.root.setOnClickListener {
-            itemClickListener(imageUrl)     // TODO refactor?
+            itemClickListener(imageUrl)
         }
     }
 
@@ -57,7 +57,7 @@ class ProductRecycler(var products: List<Product>, private val itemClickListener
         circularProgressDrawable.start()
         Glide.with(ctx)
             .load(url)
-            .apply(RequestOptions().placeholder(circularProgressDrawable))
+            .apply(RequestOptions().placeholder(circularProgressDrawable).dontAnimate())
             .into(holder.image)
     }
 
