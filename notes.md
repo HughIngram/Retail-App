@@ -1,12 +1,18 @@
 # Retail App
 
 ## This feature branch
+-[x] Tapping on an item shows the image fullscreen
+    -[?] animated transition
+    - fix these to improve the animation:
+    -[ ] preserve list position when going back
+    -[ ] prevent flickering when entering fullscreen
+        * use the 
+    -[ ] fix the fragment exit transition
+    -[ ] fade in the black background
 
 ## another feature branch
--[ ] Tapping on an item shows the image fullscreen
-    -[ ] animated transition
--[ ] preserve list position when going back
--[ ] prevent flickering when entering fullscreen
+-[ ] BUG: on first load, the list is not displayed
+    * is it showing the (empty) memory cache?
 
 ### this commit
 

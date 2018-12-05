@@ -1,13 +1,10 @@
 package uk.co.hughingram.retailapp.view
 
-import android.os.Bundle
 import android.support.annotation.CallSuper
 import android.support.annotation.LayoutRes
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.Window
 
 abstract class BaseFragment : Fragment() {
@@ -39,10 +36,5 @@ abstract class BaseFragment : Fragment() {
     private fun showSystemUI(window: Window) {
         window.decorView.systemUiVisibility = 0
     }
-
-    final override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? = inflater.inflate(fragmentLayout, container, false)
 
 }
