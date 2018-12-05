@@ -2,12 +2,12 @@
 
 An app for viewing a list of products returned from an API
 
-** Design patterns: **
+**Design patterns:**
 - [x] Model-View-Presenter
 - [x] Repository Pattern
 - [x] Dependency Injection / Service Locator
 
-** Libraries used: **
+**Libraries used:**
 - [x] 100% Kotlin
 - [x] Navigation Architecture Component
 - [x] Room
@@ -19,7 +19,7 @@ An app for viewing a list of products returned from an API
 - [x] Espresso & UiAutomator
 - [x] Android Test Orchestrator
 
-** Testing: **
+**Testing:**
 - [x] JVM Unit tests
 - [x] UI tests
 
